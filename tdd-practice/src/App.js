@@ -2,6 +2,11 @@ import logo from './logo.svg';
 import './App.css';
 
 function App() {
+  const TEXTS_CONFIGURATION = {
+    title: "TODO List",
+    inputLabel: "!Write a todo¡",
+    placeholder: 'Do something important'
+  }
   return (
     <div className="App">
       <header className="App-header">
@@ -18,6 +23,13 @@ function App() {
           Learn React
         </a>
       </header>
+      <h1>{TEXTS_CONFIGURATION.title}</h1>
+      <label htmlFor="toDo">
+        {TEXTS_CONFIGURATION.inputLabel }
+        <input placeholder={TEXTS_CONFIGURATION.placeholder} id="toDo" type='text'/>
+      </label >
+      
+      
     </div>
   );
 }

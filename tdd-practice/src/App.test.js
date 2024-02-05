@@ -6,3 +6,28 @@ test('renders learn react link', () => {
   const linkElement = screen.getByText(/learn react/i);
   expect(linkElement).toBeInTheDocument();
 });
+
+test('renders an elements list title', () => {
+  render(<App />);
+  const titleList = screen.getByText(/TODO List/);
+  expect(titleList).toBeInTheDocument();
+});
+
+test('renders a label tag', () => {
+  render(<App />);
+  const labelTag = screen.getByLabelText(/Write/i);
+  expect(labelTag).toBeInTheDocument();
+});
+
+test('renders an input tag', () => {
+  render(<App />);
+  const inputElement = screen.getByRole("textbox");
+  expect(inputElement).toBeInTheDocument();
+});
+
+test('renders an input placeholder', () => {
+  render(<App />);
+  const inputPlaceholder = screen.getByPlaceholderText(/Do something important/i);
+  expect(inputPlaceholder).toBeInTheDocument();
+});
+
