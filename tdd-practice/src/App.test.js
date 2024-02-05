@@ -27,7 +27,15 @@ test('renders an input tag', () => {
 
 test('renders an input placeholder', () => {
   render(<App />);
-  const inputPlaceholder = screen.getByPlaceholderText(/Do something important/i);
+  const inputPlaceholder = screen.getByPlaceholderText(/Something to do.../);
   expect(inputPlaceholder).toBeInTheDocument();
 });
+
+test('renders an input type text', () => {
+  render(<App />);
+  const inputElement = screen.getByRole("textbox");
+  expect(inputElement).toHaveAttribute('type', 'text');
+});
+
+
 

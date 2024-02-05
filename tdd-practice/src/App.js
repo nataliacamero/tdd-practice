@@ -4,16 +4,13 @@ import './App.css';
 function App() {
   const TEXTS_CONFIGURATION = {
     title: "TODO List",
-    inputLabel: "!Write a todo¡",
-    placeholder: 'Do something important'
+    inputLabel: "!Write a todo¡  ",
+    placeholder: 'Something to do...'
   }
   return (
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
         <a
           className="App-link"
           href="https://reactjs.org"
