@@ -9,7 +9,7 @@ test('renders learn react link', () => {
 
 test('renders an elements list title', () => {
   render(<App />);
-  const titleList = screen.getByText(/TODO List/i);
+  const titleList = screen.getByText(/TODO List/);
   expect(titleList).toBeInTheDocument();
 });
 
