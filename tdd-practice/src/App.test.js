@@ -1,5 +1,6 @@
 import { render, screen } from '@testing-library/react';
 import App from './App';
+import userEvent from '@testing-library/user-event';
 
 test('renders learn react link', () => {
   render(<App />);
@@ -9,7 +10,7 @@ test('renders learn react link', () => {
 
 test('renders an elements list title', () => {
   render(<App />);
-  const titleList = screen.getByText(/TODO List/i);
+  const titleList = screen.getByText(/TODO List/);
   expect(titleList).toBeInTheDocument();
 });
 
@@ -35,6 +36,13 @@ test('renders an input type text', () => {
   render(<App />);
   const inputElement = screen.getByRole("textbox");
   expect(inputElement).toHaveAttribute('type', 'text');
+});
+
+test('type an input field', async () => {
+  render(<App />);
+  const inputElement = screen.getByRole("textbox");
+  screen.debug()
+  expect(inputElement).toHaveValue("Making my bed")
 });
 
 
