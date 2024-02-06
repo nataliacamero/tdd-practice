@@ -44,8 +44,8 @@ test('type an input field', async () => {
 test('renders a text from imput value', async () => {
   render(<App />);
   const inputElement = screen.getByRole("textbox");
-  await userEvent.type(inputElement, "Do the washing up")
-  const inputValueText = screen.findByText(/"Do the washing up"/)
+  await userEvent.type(inputElement, 'Do the washing up')
+  const inputValueText = screen.getByText('Do the washing up')
   expect(inputValueText).toBeInTheDocument()
 })
 

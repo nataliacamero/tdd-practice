@@ -18,6 +18,7 @@ function App() {
         <input placeholder={TEXTS_CONFIGURATION.placeholder} id="toDo" type='text'/>
       </label >
       
+      <p>Do the washing up</p>
       
     </div>
   );
