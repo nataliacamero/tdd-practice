@@ -2,11 +2,6 @@ import { render, screen } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
-});
 
 test('renders an elements list title', () => {
   render(<App />);
@@ -16,7 +11,7 @@ test('renders an elements list title', () => {
 
 test('renders a label tag', () => {
   render(<App />);
-  const labelTag = screen.getByLabelText(/Write/i);
+  const labelTag = screen.getByLabelText(/write/i);
   expect(labelTag).toBeInTheDocument();
 });
 
@@ -41,10 +36,18 @@ test('renders an input type text', () => {
 test('type an input field', async () => {
   render(<App />);
   const inputElement = screen.getByRole("textbox");
-  userEvent.type(inputElement, "Making my bed")
+  await userEvent.type(inputElement, "Making my bed")
   screen.debug()
   expect(inputElement).toHaveValue("Making my bed")
 });
+
+test('renders a text from imput value', async () => {
+  render(<App />);
+  const inputElement = screen.getByRole("textbox");
+  await userEvent.type(inputElement, "Do the washing up")
+  const inputValueText = screen.findByText(/"Do the washing up"/)
+  expect(inputValueText).toBeInTheDocument()
+})
 
 
 
