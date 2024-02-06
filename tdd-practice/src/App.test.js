@@ -41,6 +41,7 @@ test('renders an input type text', () => {
 test('type an input field', async () => {
   render(<App />);
   const inputElement = screen.getByRole("textbox");
+  userEvent.type(inputElement, "Making my bed")
   screen.debug()
   expect(inputElement).toHaveValue("Making my bed")
 });
