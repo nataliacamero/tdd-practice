@@ -2,11 +2,12 @@ import logo from './logo.svg';
 import './App.css';
 import {useState } from 'react';
 
-function App() {
+const App = () => {
   const [toDoValue, setToDoValue] = useState("");
   const [toDoList, setToDoList ] = useState([
     {id: "", toDo: ""}
   ]);
+  
   const TEXTS_CONFIGURATION = {
     title: "ToDo List 📋",
     inputLabel: "!Write a todo 📝¡  ",
@@ -14,14 +15,11 @@ function App() {
     textButton: "Create a ToDo ✨"
   };
 
-  
   const addNewToDo = (newToDo) => {
     toDoList && setToDoList([...toDoList, {
       id: Math.random().toString(),
       toDo: newToDo}])
-
     setToDoValue("")
-    
   }
 
   const handleTextInputChange = (e) => {
@@ -50,8 +48,9 @@ function App() {
         name='toDo'
         onClick={() => addNewToDo(toDoValue)}
       >{TEXTS_CONFIGURATION.textButton}</button>
-      {toDoList.map(toDoItem => (<p key={toDoItem.id}>{toDoItem.toDo}</p>))}
-      
+      <ol>
+        {toDoList.map(toDoItem => (<li key={toDoItem.id}>{toDoItem.toDo}</li>))}
+      </ol>
     </div> 
   );
 }
