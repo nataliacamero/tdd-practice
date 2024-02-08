@@ -5,6 +5,9 @@ import { useState } from "react";
 const App = () => {
   const [toDoValue, setToDoValue] = useState("");
   const [toDoList, setToDoList] = useState([]);
+
+  const TODOS_PER_PAGE = 3;
+
   const TEXTS_CONFIGURATION = {
     title: "ToDo List 📋",
     inputLabel: "!Write a todo 📝¡  ",
@@ -49,9 +52,10 @@ const App = () => {
         {TEXTS_CONFIGURATION.textButton}
       </button>
       <ol>
-        {toDoList.map((toDoItem) => (
-          <li key={toDoItem.id}>{toDoItem.toDo}</li>
-        ))}
+        {toDoList.map(
+          (toDoItem, index) =>
+            index <= TODOS_PER_PAGE - 1 && <li key={toDoItem.id}>{toDoItem.toDo}</li>
+        )}
       </ol>
       <button type="button">Previous</button>
       <button type="button">Next</button>
