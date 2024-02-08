@@ -45,7 +45,7 @@ test("type an input field", () => {
 test("renders a todo from imput value", () => {
   render(<App />);
   const inputElement = screen.getByRole("textbox");
-  const addToDoButton = screen.getByRole("button");
+  const addToDoButton = screen.getByRole("button", { name: /create/i });
   act(() => {
     userEvent.type(inputElement, "Do the washing up");
     userEvent.click(addToDoButton);
