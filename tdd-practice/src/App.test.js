@@ -59,3 +59,9 @@ test("renders a previous button", () => {
   const previousButton = screen.getByRole("button", { name: /previous/i });
   expect(previousButton).toBeInTheDocument();
 });
+
+test("renders a next button", () => {
+  render(<App />);
+  const nextButton = screen.getByRole("button", { name: /next/i });
+  expect(nextButton).toBeInTheDocument;
+});
