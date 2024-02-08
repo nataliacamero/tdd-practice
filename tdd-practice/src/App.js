@@ -2,18 +2,34 @@ import logo from "./logo.svg";
 import "./App.css";
 import { useState } from "react";
 
+const TEXTS_CONFIGURATION = {
+  title: "ToDo List 📋",
+  inputLabel: "!Write a todo 📝¡  ",
+  placeholder: "Something to do...",
+  createButton: "Create a ToDo ✨",
+  previousButton: "Previous",
+  nextButton: "Next",
+};
+
+export const PaginatedList = ({ toDoList, toDosQuantity }) => {
+  return (
+    <>
+      <ol>
+        {toDoList.map(
+          (toDoItem, index) =>
+            index <= toDosQuantity - 1 && <li key={toDoItem.id}>{toDoItem.toDo}</li>
+        )}
+      </ol>
+      <button type="button">{TEXTS_CONFIGURATION.previousButton}</button>
+      <button type="button">{TEXTS_CONFIGURATION.nextButton}</button>
+    </>
+  );
+};
+
 const App = () => {
   const [toDoValue, setToDoValue] = useState("");
   const [toDoList, setToDoList] = useState([]);
-
   const TODOS_PER_PAGE = 3;
-
-  const TEXTS_CONFIGURATION = {
-    title: "ToDo List 📋",
-    inputLabel: "!Write a todo 📝¡  ",
-    placeholder: "Something to do...",
-    textButton: "Create a ToDo ✨",
-  };
 
   const addNewToDo = (newToDo) => {
     toDoList &&
@@ -49,16 +65,9 @@ const App = () => {
         />
       </label>
       <button type="button" name="toDo" onClick={() => addNewToDo(toDoValue)}>
-        {TEXTS_CONFIGURATION.textButton}
+        {TEXTS_CONFIGURATION.createButton}
       </button>
-      <ol>
-        {toDoList.map(
-          (toDoItem, index) =>
-            index <= TODOS_PER_PAGE - 1 && <li key={toDoItem.id}>{toDoItem.toDo}</li>
-        )}
-      </ol>
-      <button type="button">Previous</button>
-      <button type="button">Next</button>
+      <PaginatedList toDoList={toDoList} toDosQuantity={TODOS_PER_PAGE} />
     </div>
   );
 };
