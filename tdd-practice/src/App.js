@@ -1,26 +1,29 @@
-import logo from './logo.svg';
-import './App.css';
-import {useState } from 'react';
+import logo from "./logo.svg";
+import "./App.css";
+import { useState } from "react";
 
 const App = () => {
   const [toDoValue, setToDoValue] = useState("");
-  const [toDoList, setToDoList ] = useState([
-    {id: "", toDo: ""}
-  ]);
-  
+  const [toDoList, setToDoList] = useState([{ id: "", toDo: "" }]);
+
   const TEXTS_CONFIGURATION = {
     title: "ToDo List 📋",
     inputLabel: "!Write a todo 📝¡  ",
-    placeholder: 'Something to do...',
-    textButton: "Create a ToDo ✨"
+    placeholder: "Something to do...",
+    textButton: "Create a ToDo ✨",
   };
 
   const addNewToDo = (newToDo) => {
-    toDoList && setToDoList([...toDoList, {
-      id: Math.random().toString(),
-      toDo: newToDo}])
-    setToDoValue("")
-  }
+    toDoList &&
+      setToDoList([
+        ...toDoList,
+        {
+          id: Math.random().toString(),
+          toDo: newToDo,
+        },
+      ]);
+    setToDoValue("");
+  };
 
   const handleTextInputChange = (e) => {
     setToDoValue(e.target.value);
@@ -33,26 +36,26 @@ const App = () => {
       </header>
       <h1>{TEXTS_CONFIGURATION.title}</h1>
       <label htmlFor="toDo">
-        {TEXTS_CONFIGURATION.inputLabel }
-        <input 
-          placeholder={TEXTS_CONFIGURATION.placeholder} 
-          id="toDo" 
-          name='toDo' 
-          type='text' 
+        {TEXTS_CONFIGURATION.inputLabel}
+        <input
+          placeholder={TEXTS_CONFIGURATION.placeholder}
+          id="toDo"
+          name="toDo"
+          type="text"
           value={toDoValue}
           onChange={handleTextInputChange}
         />
-      </label >
-      <button 
-        type='button' 
-        name='toDo'
-        onClick={() => addNewToDo(toDoValue)}
-      >{TEXTS_CONFIGURATION.textButton}</button>
+      </label>
+      <button type="button" name="toDo" onClick={() => addNewToDo(toDoValue)}>
+        {TEXTS_CONFIGURATION.textButton}
+      </button>
       <ol>
-        {toDoList.map(toDoItem => (<li key={toDoItem.id}>{toDoItem.toDo}</li>))}
+        {toDoList.map((toDoItem) => (
+          <li key={toDoItem.id}>{toDoItem.toDo}</li>
+        ))}
       </ol>
-    </div> 
+    </div>
   );
-}
+};
 
 export default App;
