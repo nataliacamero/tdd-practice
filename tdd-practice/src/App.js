@@ -5,7 +5,6 @@ import { useState } from "react";
 const App = () => {
   const [toDoValue, setToDoValue] = useState("");
   const [toDoList, setToDoList] = useState([{ id: "", toDo: "" }]);
-
   const TEXTS_CONFIGURATION = {
     title: "ToDo List 📋",
     inputLabel: "!Write a todo 📝¡  ",
@@ -55,6 +54,7 @@ const App = () => {
         ))}
       </ol>
       <button type="button">Previous</button>
+      <button type="button">Next</button>
     </div>
   );
 };
