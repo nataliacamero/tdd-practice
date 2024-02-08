@@ -4,7 +4,7 @@ import { useState } from "react";
 
 const App = () => {
   const [toDoValue, setToDoValue] = useState("");
-  const [toDoList, setToDoList] = useState([{ id: "", toDo: "" }]);
+  const [toDoList, setToDoList] = useState([]);
   const TEXTS_CONFIGURATION = {
     title: "ToDo List 📋",
     inputLabel: "!Write a todo 📝¡  ",
