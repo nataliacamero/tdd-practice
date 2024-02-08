@@ -1,12 +1,33 @@
 import logo from './logo.svg';
 import './App.css';
+import {useState } from 'react';
 
 function App() {
+  const [toDoValue, setToDoValue] = useState("");
+  const [toDoList, setToDoList ] = useState([
+    {id: "", toDo: ""}
+  ]);
   const TEXTS_CONFIGURATION = {
-    title: "TODO List",
-    inputLabel: "!Write a todo¡  ",
-    placeholder: 'Something to do...'
+    title: "ToDo List 📋",
+    inputLabel: "!Write a todo 📝¡  ",
+    placeholder: 'Something to do...',
+    textButton: "Create a ToDo ✨"
+  };
+
+  
+  const addNewToDo = (newToDo) => {
+    toDoList && setToDoList([...toDoList, {
+      id: Math.random().toString(),
+      toDo: newToDo}])
+
+    setToDoValue("")
+    
   }
+
+  const handleTextInputChange = (e) => {
+    setToDoValue(e.target.value);
+  };
+
   return (
     <div className="App">
       <header className="App-header">
@@ -15,12 +36,23 @@ function App() {
       <h1>{TEXTS_CONFIGURATION.title}</h1>
       <label htmlFor="toDo">
         {TEXTS_CONFIGURATION.inputLabel }
-        <input placeholder={TEXTS_CONFIGURATION.placeholder} id="toDo" type='text'/>
+        <input 
+          placeholder={TEXTS_CONFIGURATION.placeholder} 
+          id="toDo" 
+          name='toDo' 
+          type='text' 
+          value={toDoValue}
+          onChange={handleTextInputChange}
+        />
       </label >
+      <button 
+        type='button' 
+        name='toDo'
+        onClick={() => addNewToDo(toDoValue)}
+      >{TEXTS_CONFIGURATION.textButton}</button>
+      {toDoList.map(toDoItem => (<p key={toDoItem.id}>{toDoItem.toDo}</p>))}
       
-      <p>Do the washing up</p>
-      
-    </div>
+    </div> 
   );
 }
 

@@ -1,11 +1,11 @@
-import { render, screen } from '@testing-library/react';
+import { render, screen, act } from '@testing-library/react';
 import App from './App';
 import userEvent from '@testing-library/user-event';
 
 
 test('renders an elements list title', () => {
   render(<App />);
-  const titleList = screen.getByText(/TODO List/);
+  const titleList = screen.getByText(/ToDo List/);
   expect(titleList).toBeInTheDocument();
 });
 
@@ -33,18 +33,24 @@ test('renders an input type text', () => {
   expect(inputElement).toHaveAttribute('type', 'text');
 });
 
-test('type an input field', async () => {
+test('type an input field', () => {
   render(<App />);
   const inputElement = screen.getByRole("textbox");
-  await userEvent.type(inputElement, "Making my bed")
+  act(() => {
+    userEvent.type(inputElement, "Making my bed")
+  });
   screen.debug()
   expect(inputElement).toHaveValue("Making my bed")
 });
 
-test('renders a text from imput value', async () => {
+test('renders a todo from imput value', () => {
   render(<App />);
   const inputElement = screen.getByRole("textbox");
-  await userEvent.type(inputElement, 'Do the washing up')
+  const addToDoButton = screen.getByRole("button")
+  act(() => {
+    userEvent.type(inputElement, 'Do the washing up')
+    userEvent.click(addToDoButton)
+  });
   const inputValueText = screen.getByText('Do the washing up')
   expect(inputValueText).toBeInTheDocument()
 })
