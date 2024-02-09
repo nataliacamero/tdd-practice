@@ -1,5 +1,5 @@
 import { render, screen, act } from "@testing-library/react";
-import App from "./App";
+import App, { PaginatedList } from "./App";
 import userEvent from "@testing-library/user-event";
 
 test("renders an elements list title", () => {
@@ -87,4 +87,19 @@ test("renders a list with 3 todo's items", async () => {
     toDoList.map((item) => item.textContent)
   );
   expect(toDoList.length).toBe(3);
+});
+
+test("disable the next button, if there are no more pages", () => {
+  const toDoArray = ["One ToDo", "Two ToDo", "Trhee ToDo"];
+  const numberOfToDoPerPage = 3;
+  render(
+    <App>
+      <PaginatedList toDoList={toDoArray} toDosQuantity={numberOfToDoPerPage} />
+    </App>
+  );
+  const inputField = screen.getByRole("textbox");
+  const createToDoButton = screen.getByRole("button", { name: /create/i });
+  const nextPageButton = screen.getByRole("button", { name: /next/i });
+  screen.debug();
+  expect(nextPageButton).toBeDisabled();
 });

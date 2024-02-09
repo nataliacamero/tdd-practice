@@ -20,8 +20,6 @@ export const PaginatedList = ({ toDoList, toDosQuantity }) => {
             index <= toDosQuantity - 1 && <li key={toDoItem.id}>{toDoItem.toDo}</li>
         )}
       </ol>
-      <button type="button">{TEXTS_CONFIGURATION.previousButton}</button>
-      <button type="button">{TEXTS_CONFIGURATION.nextButton}</button>
     </>
   );
 };
@@ -68,6 +66,8 @@ const App = () => {
         {TEXTS_CONFIGURATION.createButton}
       </button>
       <PaginatedList toDoList={toDoList} toDosQuantity={TODOS_PER_PAGE} />
+      <button type="button">{TEXTS_CONFIGURATION.previousButton}</button>
+      <button type="button">{TEXTS_CONFIGURATION.nextButton}</button>
     </div>
   );
 };
