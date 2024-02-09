@@ -67,7 +67,9 @@ const App = () => {
       </button>
       <PaginatedList toDoList={toDoList} toDosQuantity={TODOS_PER_PAGE} />
       <button type="button">{TEXTS_CONFIGURATION.previousButton}</button>
-      <button type="button">{TEXTS_CONFIGURATION.nextButton}</button>
+      <button type="button" disabled={true}>
+        {TEXTS_CONFIGURATION.nextButton}
+      </button>
     </div>
   );
 };
