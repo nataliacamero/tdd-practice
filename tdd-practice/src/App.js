@@ -35,7 +35,6 @@ const App = () => {
   const TODOS_PER_PAGE = 3;
 
   const isFirstPage = (firstToDo) => {
-    if (!firstToDo) return;
     const indexToDo = toDoList?.findIndex((objeto) => objeto.toDo === firstToDo);
     if (indexToDo === 0 || toDoList.length === 0) {
       setFirtsPage(true);
@@ -94,7 +93,7 @@ const App = () => {
       <p>{firstPage && "firstPage"}</p>
       <p>{lastToDo && `${lastToDo}`}</p>
       <PaginatedList ref={listRef} toDoList={toDoList} toDosQuantity={TODOS_PER_PAGE} />
-      <button type="button" disabled={true}>
+      <button type="button" disabled={firstPage}>
         {TEXTS_CONFIGURATION.previousButton}
       </button>
       <button type="button" disabled={toDoList?.length <= TODOS_PER_PAGE}>
