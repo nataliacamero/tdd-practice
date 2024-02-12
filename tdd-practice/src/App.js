@@ -1,6 +1,6 @@
 import logo from "./logo.svg";
 import "./App.css";
-import { useState } from "react";
+import { forwardRef, useEffect, useRef, useState } from "react";
 
 const TEXTS_CONFIGURATION = {
   title: "ToDo List 📋",
@@ -11,10 +11,10 @@ const TEXTS_CONFIGURATION = {
   nextButton: "Next",
 };
 
-export const PaginatedList = ({ toDoList, toDosQuantity }) => {
+export const PaginatedList = forwardRef(({ toDoList, toDosQuantity }, ref) => {
   return (
     <>
-      <ol>
+      <ol ref={ref}>
         {toDoList.map(
           (toDoItem, index) =>
             index <= toDosQuantity - 1 && <li key={toDoItem.id}>{toDoItem.toDo}</li>
@@ -22,14 +22,31 @@ export const PaginatedList = ({ toDoList, toDosQuantity }) => {
       </ol>
     </>
   );
-};
+});
 
 const App = () => {
   const [toDoValue, setToDoValue] = useState("");
   const [toDoList, setToDoList] = useState([]);
+  const [lastToDo, setLastToDo] = useState(false);
+  const [firstPage, setFirtsPage] = useState(false);
+  const [lastPage, setLastPage] = useState(false);
+  const [countLi, setCountLi] = useState(0);
+  const listRef = useRef(null);
   const TODOS_PER_PAGE = 3;
 
+  const isFirstPage = (firstToDo) => {
+    if (!firstToDo) return;
+    const indexToDo = toDoList?.findIndex((objeto) => objeto.toDo === firstToDo);
+    if (indexToDo === 0 || toDoList.length === 0) {
+      setFirtsPage(true);
+    }
+  };
+
   const addNewToDo = (newToDo) => {
+    if (!newToDo) {
+      console.error("You haven't written a to do.");
+      return;
+    }
     toDoList &&
       setToDoList([
         ...toDoList,
@@ -44,6 +61,18 @@ const App = () => {
   const handleTextInputChange = (e) => {
     setToDoValue(e.target.value);
   };
+
+  useEffect(() => {
+    const firstChild = listRef?.current?.firstChild?.innerText;
+    const lastChild = listRef?.current?.lastChild?.innerText;
+    const counterElements = listRef?.current?.childElementCount;
+    setCountLi(counterElements);
+    isFirstPage(firstChild && firstChild);
+    console.log("ListRefEffect-First", listRef?.current?.childElementCount);
+    console.log("ListRefEffect-last", listRef?.current?.lastChild?.innerText);
+    setLastToDo(lastChild && lastChild !== firstChild && lastChild !== "");
+    console.log("lastToDo", lastToDo && lastToDo);
+  }, [lastToDo, isFirstPage, countLi]);
 
   return (
     <div className="App">
@@ -65,9 +94,13 @@ const App = () => {
       <button type="button" name="toDo" onClick={() => addNewToDo(toDoValue)}>
         {TEXTS_CONFIGURATION.createButton}
       </button>
-      <PaginatedList toDoList={toDoList} toDosQuantity={TODOS_PER_PAGE} />
-      <button type="button">{TEXTS_CONFIGURATION.previousButton}</button>
-      <button type="button" disabled={true}>
+      <p>{firstPage && "firstPage"}</p>
+      <p>{lastToDo && `${lastToDo}`}</p>
+      <PaginatedList ref={listRef} toDoList={toDoList} toDosQuantity={TODOS_PER_PAGE} />
+      <button type="button" disabled={!toDoValue}>
+        {TEXTS_CONFIGURATION.previousButton}
+      </button>
+      <button type="button" disabled={countLi !== TODOS_PER_PAGE}>
         {TEXTS_CONFIGURATION.nextButton}
       </button>
     </div>
