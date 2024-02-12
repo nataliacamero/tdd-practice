@@ -122,3 +122,11 @@ test("enable next button when there are more pages", async () => {
   //Assert
   expect(tagNextButton).toBeEnabled();
 });
+
+test("disable the Previous button, at the first page", async () => {
+  //Arrange
+  render(<App />);
+  const previousButton = screen.getByRole("button", { name: /previo/i });
+  //Assert
+  expect(previousButton).toBeDisabled();
+});

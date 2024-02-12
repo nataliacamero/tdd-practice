@@ -94,9 +94,7 @@ const App = () => {
       <p>{firstPage && "firstPage"}</p>
       <p>{lastToDo && `${lastToDo}`}</p>
       <PaginatedList ref={listRef} toDoList={toDoList} toDosQuantity={TODOS_PER_PAGE} />
-      <button type="button" disabled={!toDoValue}>
-        {TEXTS_CONFIGURATION.previousButton}
-      </button>
+      <button type="button">{TEXTS_CONFIGURATION.previousButton}</button>
       <button type="button" disabled={toDoList?.length <= TODOS_PER_PAGE}>
         {TEXTS_CONFIGURATION.nextButton}
       </button>
