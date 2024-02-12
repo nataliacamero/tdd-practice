@@ -100,7 +100,9 @@ const App = () => {
       <button type="button" disabled={!toDoValue}>
         {TEXTS_CONFIGURATION.previousButton}
       </button>
-      <button type="button" disabled={countLi !== TODOS_PER_PAGE}>
+      <button
+        type="button"
+        disabled={countLi <= TODOS_PER_PAGE || !toDoList.length > TODOS_PER_PAGE}>
         {TEXTS_CONFIGURATION.nextButton}
       </button>
     </div>

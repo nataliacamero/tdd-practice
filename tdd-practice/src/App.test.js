@@ -103,3 +103,18 @@ test("disable the next button, if there are no more pages", () => {
   screen.debug();
   expect(nextPageButton).toBeDisabled();
 });
+
+test("enable next button when there are more pages", () => {
+  const toDoArray = ["One ToDo", "Two ToDo", "Trhee ToDo", "Four ToDo"];
+  const numberOfToDoPerPage = 3;
+  //Arrangement
+  render(
+    <App>
+      <PaginatedList toDoList={toDoArray} toDosQuantity={numberOfToDoPerPage} />
+    </App>
+  );
+  const tagNextButton = screen.getByRole("button", { name: /next/i });
+  expect(tagNextButton).toBeEnabled();
+  //Act
+  //Assert
+});
