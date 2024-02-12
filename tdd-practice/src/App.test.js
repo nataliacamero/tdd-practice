@@ -67,54 +67,58 @@ test("renders a next button", () => {
 });
 
 test("renders a list with 3 todo's items", async () => {
+  //Arrange
   render(<App />);
   const toDoArray = ["One ToDo", "Two ToDo", "Trhee ToDo", "Four ToDo", "Five ToDo"];
   const inputElementTestList = screen.getByRole("textbox");
   const addingToDo = screen.getByRole("button", { name: /create/i });
+  //Act
   await act(async () => {
     toDoArray.map(async (item) => {
       userEvent.type(inputElementTestList, `${item}`);
-      console.log(`Adding task: ${item}`);
       userEvent.click(addingToDo);
-      console.log(`Clicked "Create" button`);
     });
   });
-  console.log("Tasks added, now checking list...");
   const toDoList = await screen.getAllByRole("listitem");
-  console.log("Number of tasks in list:", toDoList.length);
-  console.log(
-    "Tasks in list:",
-    toDoList.map((item) => item.textContent)
-  );
+  //Assert
   expect(toDoList.length).toBe(3);
 });
 
-test("disable the next button, if there are no more pages", () => {
+test("disable the next button, if there are no more pages", async () => {
+  //Arrange
   const toDoArray = ["One ToDo", "Two ToDo", "Trhee ToDo"];
-  const numberOfToDoPerPage = 3;
-  render(
-    <App>
-      <PaginatedList toDoList={toDoArray} toDosQuantity={numberOfToDoPerPage} />
-    </App>
-  );
+  render(<App />);
   const inputField = screen.getByRole("textbox");
   const createToDoButton = screen.getByRole("button", { name: /create/i });
   const nextPageButton = screen.getByRole("button", { name: /next/i });
+  //Act
+  await act(async () => {
+    toDoArray.map((item) => {
+      userEvent.type(inputField, `${item}`);
+      userEvent.click(createToDoButton);
+    });
+  });
   screen.debug();
+  //Assert
   expect(nextPageButton).toBeDisabled();
 });
 
-test("enable next button when there are more pages", () => {
+test("enable next button when there are more pages", async () => {
+  //Arrange
   const toDoArray = ["One ToDo", "Two ToDo", "Trhee ToDo", "Four ToDo"];
-  const numberOfToDoPerPage = 3;
-  //Arrangement
-  render(
-    <App>
-      <PaginatedList toDoList={toDoArray} toDosQuantity={numberOfToDoPerPage} />
-    </App>
-  );
+  render(<App />);
+  const inputField = screen.getByRole("textbox");
+  const createToDoButton = screen.getByRole("button", { name: /create/i });
   const tagNextButton = screen.getByRole("button", { name: /next/i });
-  expect(tagNextButton).toBeEnabled();
   //Act
+  await act(async () => {
+    toDoArray.map((item) => {
+      userEvent.type(inputField, `${item}`);
+      userEvent.click(createToDoButton);
+      userEvent.clear(inputField);
+    });
+  });
+  screen.debug();
   //Assert
+  expect(tagNextButton).toBeEnabled();
 });

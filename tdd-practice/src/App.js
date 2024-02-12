@@ -68,10 +68,7 @@ const App = () => {
     const counterElements = listRef?.current?.childElementCount;
     setCountLi(counterElements);
     isFirstPage(firstChild && firstChild);
-    console.log("ListRefEffect-First", listRef?.current?.childElementCount);
-    console.log("ListRefEffect-last", listRef?.current?.lastChild?.innerText);
     setLastToDo(lastChild && lastChild !== firstChild && lastChild !== "");
-    console.log("lastToDo", lastToDo && lastToDo);
   }, [lastToDo, isFirstPage, countLi]);
 
   return (
@@ -100,9 +97,7 @@ const App = () => {
       <button type="button" disabled={!toDoValue}>
         {TEXTS_CONFIGURATION.previousButton}
       </button>
-      <button
-        type="button"
-        disabled={countLi <= TODOS_PER_PAGE || !toDoList.length > TODOS_PER_PAGE}>
+      <button type="button" disabled={toDoList?.length <= TODOS_PER_PAGE}>
         {TEXTS_CONFIGURATION.nextButton}
       </button>
     </div>
